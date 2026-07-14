@@ -2,6 +2,25 @@
 
 Минимальный базовый набор для старта адаптивного проекта на HTML с использованием **Системы 4 (С4)** — кодо-центричной среды для построения интерфейсов.
 
+## Установка
+
+### Клонировать репозиторий:
+
+```bash
+git clone https://github.com/s4-design/s4-template-html.git
+cd s4-template-html
+```
+
+### Открыть `index.html` в браузере напрямую или запусти локальный сервер:
+```bash
+npx serve
+```
+
+Сборка и зависимости не требуются — это чистый HTML/CSS/JS. `npx serve`[^1] удобен тем, что корректно обрабатывает пути к подключаемым файлам.
+
+[^1]: Требуется установленный Node.js
+
+
 ## Быстрый старт
 
 ```html
@@ -20,24 +39,25 @@
 
 ```
 s4/
+├── S4.md
 ├── css/
+│   ├── elements.css
+│   ├── utilities.css
 │   ├── desktop/
-│   │   ├── landscape.css
-│   │   ├── portrait.css
-│   │   └── config.css
-│   ├── mobile/
-│   │   ├── landscape.css
-│   │   ├── portrait.css
-│   │   └── config.css
+│   │   ├── config.css
+│   │   ├── landscape-utilities.css
+│   │   └── portrait-utilities.css
 │   ├── tablet/
-│   │   ├── landscape.css
-│   │   ├── portrait.css
-│   │   └── config.css
-│   └── elements.css
-├── js/
-│   ├── device-state.min.js
-│   └── s4.min.js
-└── S4.md
+│   │   ├── config.css
+│   │   ├── landscape-utilities.css
+│   │   └── portrait-utilities.css
+│   └── mobile/
+│       ├── config.css
+│       ├── landscape-utilities.css
+│       └── portrait-utilities.css
+└── js/
+    ├── s4.min.js
+    └── device-state.min.js
 ```
 
 ## Подробнее
