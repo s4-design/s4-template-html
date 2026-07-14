@@ -38,26 +38,29 @@ npx serve
 ## Структура файлов
 
 ```
-s4/
-├── S4.md
-├── css/
-│   ├── elements.css
-│   ├── utilities.css
-│   ├── desktop/
-│   │   ├── config.css
-│   │   ├── landscape-utilities.css
-│   │   └── portrait-utilities.css
-│   ├── tablet/
-│   │   ├── config.css
-│   │   ├── landscape-utilities.css
-│   │   └── portrait-utilities.css
-│   └── mobile/
-│       ├── config.css
-│       ├── landscape-utilities.css
-│       └── portrait-utilities.css
-└── js/
-    ├── s4.min.js
-    └── device-state.min.js
+s4-template-html/
+├── s4/
+│   ├── css/
+│   │   ├── desktop/
+│   │   │   ├── config.css
+│   │   │   ├── landscape-utilities.css
+│   │   │   └── portrait-utilities.css
+│   │   ├── mobile/
+│   │   │   ├── config.css
+│   │   │   ├── landscape-utilities.css
+│   │   │   └── portrait-utilities.css
+│   │   ├── tablet/
+│   │   │   ├── config.css
+│   │   │   ├── landscape-utilities.css
+│   │   │   └── portrait-utilities.css
+│   │   ├── elements.css
+│   │   └── utilities.css
+│   ├── js/
+│   │   ├── device-state.min.js
+│   │   └── s4.min.js
+│   └── S4.md
+├── favicon.svg
+└── index.html
 ```
 
 ## Подробнее
