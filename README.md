@@ -58,6 +58,8 @@ s4-template-html/
 │   ├── js/
 │   │   ├── device-state.min.js
 │   │   └── s4.min.js
+│   ├── REFERENCE-ELEMENTS.md
+│   ├── REFERENCE-UTILITIES.md
 │   └── S4.md
 ├── favicon.svg
 └── index.html
@@ -66,6 +68,8 @@ s4-template-html/
 ## Подробнее
 
 Архитектура, формулы классов, пресеты и API описаны в [s4/S4.md](./s4/S4.md).
+
+Справочники классов и элементов — в [s4/REFERENCE-UTILITIES.md](./s4/REFERENCE-UTILITIES.md) и [s4/REFERENCE-ELEMENTS.md](./s4/REFERENCE-ELEMENTS.md).
 
 ## Лицензия
 
