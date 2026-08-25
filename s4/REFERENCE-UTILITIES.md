@@ -1,13 +1,13 @@
-# Справочник S4 для AI-агента
+# Справочник утилит С4
 
-> См. также архитектуру системы: [S4.md](S4.md).
+> См. также: [S4.md](S4.md), [REFERENCE-ELEMENTS.md](REFERENCE-ELEMENTS.md)
 
 ## Список: Свойство и их модификаторы
 
 | Свойство | Модификаторы |
 |---|---|
 | `align-content` | `baseline`, `space-around`, `space-between`, `center`, `end`, `space-evenly`, `start`, `stretch` |
-| `align-items` | `baseline`, `center`, `end`, `start`, `stretch` |
+| `align-items` | `anchor-center`, `baseline`, `center`, `end`, `start`, `stretch` |
 | `align-self` | `baseline`, `center`, `end`, `start`, `stretch` |
 | `aspect-ratio` | `1/1`, `4/3`, `3/4`, `16/9`, `9/16`, `16/10`, `10/16`, `21/9`, `9/21`, `32/9`, `9/32` |
 | `backdrop-filter` | |
@@ -58,7 +58,7 @@
 | `flex-direction` | `row`, `row-reverse`, `column`, `column-reverse` |
 | `flex-grow` | `0`, `1` |
 | `flex-shrink` | `0`, `1` |
-| `flex-wrap` | `wrap`, `wrap-reverse`, `nowrap` |
+| `flex-wrap` | `wrap`, `wrap-reverse`, `nowrap`, `balance` |
 | `float` | `inline-start`, `inline-end`, `none` |
 | `font-size` | `s3`, `s2`, `s1`, `md`, `l1`, `l2`, `l3`, `l4` |
 | `font-weight` | `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`, `unset` |
@@ -84,6 +84,7 @@
 | `justify-content` | `space-around`, `space-between`, `center`, `end`, `space-evenly`, `start`, `stretch` |
 | `justify-items` | `center`, `end`, `start`, `stretch` |
 | `justify-self` | `center`, `end`, `start`, `stretch` |
+| `letter-spacing` |  |
 | `line-height` | `0`, `1`, `unset` |
 | `margin-block` | `s3`, `s2`, `s1`, `md`, `l1`, `l2`, `l3`, `l4`, `auto`, `unset` |
 | `margin-block-end` | `s3`, `s2`, `s1`, `md`, `l1`, `l2`, `l3`, `l4`, `auto`, `unset` |
@@ -183,7 +184,7 @@
 
 ### Если свойства нет в таблице
 
-Свойства, отсутствующего в таблице, не существует в ядре. Используй инлайн-стиль напрямую. Сообщи об этом пользователю.
+Свойства, отсутствующего в таблице, не существует в ядре. Используй инлайн-стиль напрямую — но только для логических CSS-свойств (`block-size`, `margin-inline` и т.п.); физические свойства (`width`, `height`, `margin-top`, `padding-left` …) запрещены (см. AGENT.md, «Запреты»). Сообщи об этом пользователю.
 
 ```html
 <div style="clip-path: circle(50%)">...</div>

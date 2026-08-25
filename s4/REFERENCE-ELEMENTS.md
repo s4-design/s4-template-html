@@ -1,4 +1,4 @@
-# Справочник элементов S4 для AI-агента
+# Справочник элементов С4
 
 > См. также: [S4.md](S4.md), [REFERENCE-UTILITIES.md](REFERENCE-UTILITIES.md)
 
@@ -57,6 +57,7 @@
         - [`<input type="radio">`](#input-type-radio-переключатель)
         - [`<select>`](#select-список-выбора)
         - [`<optgroup>`](#optgroup)
+        - [`<textarea>`](#textarea-многострочное-поле)
         - [`<fieldset>`](#fieldset)
     - [Инертность (`[inert]`)](#инертность-inert)
 
@@ -180,7 +181,7 @@
 
 | Атрибут | Значения |
 |---------|----------|
-| `class` | `negative`, `prime`, `second`, `success`, `danger` (без класса - нейтральный) |
+| `class` | `positive`, `negative`, `prime`, `second`, `success`, `danger` (без класса - нейтральный) |
 | `role` | `status` (по умолч.), `alert` (только для danger) |
 
 **Структура:**
@@ -202,6 +203,7 @@
 | Класс | Role |
 |-------|------|
 | _(нет)_ | `status` |
+| `positive` | `status` |
 | `negative` | `status` |
 | `prime` | `status` |
 | `second` | `status` |
@@ -213,7 +215,6 @@
 - Заголовок и подвал опциональны; если есть хотя бы один - сообщение считается составным.
 - `<e-body>` внутри `<e-message>` обязателен. Текст напрямую внутри `<e-message>` - ошибка.
 - `danger` → `role="alert"`, все остальные → `role="status"`.
-- Для ссылок на MDN на страницах других элементов: `<e-message class="second" role="status">`.
 
 **Пример:**
 
@@ -237,7 +238,7 @@
 
 | Атрибут | Значения |
 |---------|----------|
-| `class` | `negative`, `prime`, `second`, `success`, `danger` (без класса - нейтральный) |
+| `class` | `positive`, `negative`, `prime`, `second`, `success`, `danger` (без класса - нейтральный) |
 | `role` | `status` |
 
 **Role:** `status` (всегда).
@@ -318,6 +319,27 @@
 - Цвет - через `color--*`; фон - через `background-color--*`.
 - Декоративная иконка (без смысла для ассистивных технологий) - `aria-hidden="true"`.
 - Для визуального состояния флажка/переключателя - `uncheck`/`check` (обе иконки кладутся рядом, видимость переключает пресет).
+
+**Источник иконок:**
+
+- Рекомендуется [Tabler Icons](https://github.com/tabler/tabler-icons/tree/main/icons) (MIT).
+
+**Рекомендация:**
+
+- Иконки подключай **внешним файлом**: `<e-icon style="--image: url(/icons/имя.svg)">`. НЕ встраивай SVG-код в разметку.
+- Почему:
+    - внешний файл кешируется браузером — загружается один раз, а не при каждом использовании;
+    - разметка не раздувается — повторное использование иконки не дублирует её код;
+    - замена иконки = замена файла, без правки HTML.
+- Минус: каждый файл — отдельный запрос. При чрезмерно большом количестве иконок на странице следует собирать их в сводный спрайт.
+- Исключение: встроенный SVG допустим только для 1–2 уникальных иконок, когда нельзя ждать запрос к файлу.
+
+```html
+<!-- так правильно -->
+<e-icon aria-hidden="true" style="--image: url(/icons/arrow.svg);"></e-icon>
+<!-- так не надо: SVG-код дублируется в разметке и не кешируется -->
+<e-icon aria-hidden="true" style="--image: url('data:image/svg+xml,...');"></e-icon>
+```
 
 **Пример:**
 
@@ -437,7 +459,7 @@
 
 | Атрибут | Значения |
 |---------|----------|
-| `class` | `element--button` (вид кнопки), `negative`, `prime`, `second`, `success`, `danger` (цвета), `font-size--s3`...`font-size--l4` (размер) |
+| `class` | `element--button` (вид кнопки), `positive`, `negative`, `prime`, `second`, `success`, `danger` (цвета), `font-size--s3`...`font-size--l4` (размер) |
 | `role` | `button` (интерактив) |
 
 **Структура:**
@@ -513,6 +535,8 @@
 | `differ` | альтернативный внешний вид кнопки/ссылки |
 
 Состояния применяются одинаково ко всем интерактивным mutated-элементам: `a`, `button`, `input`, `checkbox`, `radio`, `select`.
+
+**Важно — что сгенерировано, а что нет.** Единственное состояние, доступное как класс (`…:hover`), — `:hover` (см. AGENT.md, алгоритм шаг 4, и LAYOUT.md §6). `disabled` и `inert` — это HTML-атрибуты; они стилизуются через `[disabled]` / `[inert]` в `elements.css`, а не через utility-классы. Псевдоклассы `:focus` / `:active` / `:checked` классами НЕ генерируются — не выдумывай для них классы.
 
 ---
 
@@ -766,7 +790,7 @@
 | Атрибут | Значения |
 |---------|----------|
 | `href` | URL перехода |
-| `class` | цвета `negative`/`prime`/`second`/`success`/`danger`, `element--button`, `differ` |
+| `class` | цвета `positive`/`negative`/`prime`/`second`/`success`/`danger`, `element--button`, `differ` |
 | `inert` | состояние (недоступна) |
 
 **Пример:**
@@ -925,7 +949,7 @@ style="--flex-basis: 20em"
 
 **Варианты:**
 - Кнопка как кнопка `<button>`.
-- Только иконка: `<button title="..."><e-icon ...></e-icon></button>`.
+  - Только иконка: `<button class="padding-inline--s3 padding-block--s3" title="..."><e-icon ...></e-icon></button>` — уменьшает горизонтальный отступ; чтобы кнопка стала квадратной, задай и `padding-block--s3` (см. пример ниже).
 - Изображение как кнопка: `<input type="image" src="..." alt="...">`.
 - Переключатель/флажок как кнопка: `<label class="element--button"><input type="radio">...</label>`.
 - Гиперссылка как кнопка: `<a class="element--button">`.
@@ -937,8 +961,13 @@ style="--flex-basis: 20em"
 
 ```html
 <button>Кнопка</button>
-<button><e-icon style="--image:url(/icons/icon.svg)" aria-hidden="true"></e-icon>Кнопка</button>
-<button title="Кнопка"><e-icon style="--image:url(/icons/icon.svg)" aria-hidden="true"></e-icon></button>
+<button>
+    <e-icon style="--image:url(/icons/icon.svg)" aria-hidden="true"></e-icon>
+    Кнопка
+</button>
+<button class="padding-inline--s3 padding-block--s3" title="Кнопка">
+    <e-icon style="--image:url(/icons/icon.svg)" aria-hidden="true"></e-icon>
+</button>
 ```
 
 ### `<details>`
@@ -1169,6 +1198,34 @@ style="--flex-basis: 20em"
 </select>
 ```
 
+### `<textarea>` (многострочное поле)
+
+**Назначение:** многострочное поле ввода текста.
+
+**Атрибуты:**
+
+| Атрибут | Значения |
+|---------|----------|
+| `rows` | высота в строках |
+| `placeholder` | подсказка при пустом поле |
+| `required` | обязательное поле (пустое - `:invalid`) |
+| `minlength`/`maxlength` | диапазон длины |
+| `disabled`/`inert` | состояние |
+| `readonly` | только для чтения |
+| `data-validation` | `immediate`/`user` - режим валидации |
+
+**Правила:**
+- Текст задаётся содержимым тега, не атрибутом `value`.
+- Валидация - по `:invalid`/`:user-invalid` (аналогично `<input>`); `data-validation="immediate"` проверяет сразу, `"user"` - после ввода.
+- `readonly` - поле только для чтения (`cursor: not-allowed`).
+
+**Пример:**
+
+```html
+<textarea placeholder="Введите текст" rows="4" required></textarea>
+<textarea rows="4" readonly>Текст нельзя изменить</textarea>
+```
+
 ### `<fieldset>`
 
 **Назначение:** набор полей (группа полей формы).
@@ -1201,3 +1258,48 @@ style="--flex-basis: 20em"
 <p inert>Инертное содержимое.</p>
 <button inert>Инертная кнопка</button>
 ```
+
+---
+
+## Паттерны использования (элементы + утилиты + адаптив)
+
+Элементы С4 — готовые кирпичики; утилиты (Ф1/Ф2/Ф3) достраивают раскладку, отступы, цвет и адаптив поверх них. Детальные атрибуты и структуру каждого элемента см. в его разделе выше.
+
+### Общий принцип： элемент + утилиты
+
+- **Гравитация (размер):** любой элемент масштабируется утилитой размера шрифта — `font-size--s3`…`font-size--l4`. Меняет все `em`-метрики элемента (отступы, углы, иконку). Пример: `<e-badge class="font-size--l1">`.
+- **Цвет акцента:** элементы принимают модификаторы `positive` / `prime` / `negative` / `second` / `success` / `danger` (и `differ` — альтернативный вид кнопки/ссылки). Дополнительно цвет/фон задаётся утилитой напрямую: `color--prime`, `background-color--positive--mute`. Пример: `<e-icon class="color--prime">`.
+- **Отступы и раскладка:** вокруг/внутри элемента — утилитами `padding--*`, `margin--*`, `gap--*`, `display--*`.
+- **Hover:** работает (суффикс `:hover`, см. [LAYOUT.md](LAYOUT.md) §6). `:focus` / `:active` / `:disabled` / `:checked` классами не существуют.
+
+### Адаптив элемента (Ф2)
+
+Рантайм грузит CSS только текущего устройства, поэтому адаптив элемента задаётся Ф2-классами в том же HTML (база — Ф1, переопределение — Ф2 под нужное устройство/ориентацию; см. [LAYOUT.md](LAYOUT.md) §1). Группа, разворачивающаяся из строки в колонку на мобильном портрете:
+
+```html
+<e-group class="display--inline-flex flex-direction--row
+                m_p_flex-direction--column"
+         style="--border-radius: var(--border-radius--md)" role="group">
+  <div class="background-color--positive padding-inline--s1 padding-block--s1">Ячейка</div>
+  <e-line role="separator"></e-line>
+  <div class="background-color--positive padding-inline--s1 padding-block--s1">Ячейка</div>
+</e-group>
+```
+
+### Композитная карточка
+
+Контейнер на утилитах + элемент внутри (здесь — `e-message` с подвалом-кнопками). Утилиты задают поверхность и отступы, элемент — семантику и акцент:
+
+```html
+<div class="border-radius--md padding-inline--md padding-block--md background-color--positive--mute">
+  <e-message class="success" role="status">
+    <header>Готово</header>
+    <e-body>Действие выполнено успешно.</e-body>
+    <footer class="margin-block-start--unset">
+      <button class="differ background-color--transparent margin-inline-start--auto">OK</button>
+    </footer>
+  </e-message>
+</div>
+```
+
+Аналогично собираются любые блоки: контейнер-утилиты → вложенные элементы (`e-badge`, `e-group`, `e-icon`) + утилиты раскладки. Кнопки в подвале прижимай `margin-inline-start--auto` (вправо) или `justify-content--*` на родителе.
