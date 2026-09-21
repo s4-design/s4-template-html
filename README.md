@@ -1,3 +1,7 @@
+<p align="right">
+    <a href="README.en.md">🇬🇧 English</a>
+</p>
+
 # S4 Template HTML
 
 Минимальный базовый набор для старта адаптивного проекта на HTML с использованием **Системы 4 (С4)** — кодо-центричной среды для построения интерфейсов.
@@ -55,14 +59,19 @@ s4-template-html/
 │   │   │   └── portrait-utilities.css
 │   │   ├── elements.css
 │   │   └── utilities.css
+│   ├── contract/
+│   │   ├── elements/
+│   │   │   ├── created/
+│   │   │   └── modified/
+│   │   ├── patterns.json
+│   │   ├── rules.json
+│   │   ├── utilities.json
+│   │   ├── variables.json
+│   │   └── validate-s4.mjs
 │   ├── js/
 │   │   ├── device-state.min.js
 │   │   └── s4.min.js
-│   ├── AGENT.md
-│   ├── index.md
-│   ├── REFERENCE-ELEMENTS.md
-│   ├── REFERENCE-UTILITIES.md
-│   ├── S4.md
+│   ├── AGENTS.md
 │   └── dependency-map.json
 ├── AGENTS.md
 ├── favicon.svg
@@ -71,20 +80,27 @@ s4-template-html/
 
 ## Подробнее
 
-Архитектура, формулы классов, пресеты и API описаны в [s4/S4.md](./s4/S4.md).
+Правила вёрстки С4 заданы JSON-контрактом дистрибутива `s4/`:
 
-Справочники классов и элементов — в [s4/REFERENCE-UTILITIES.md](./s4/REFERENCE-UTILITIES.md) и [s4/REFERENCE-ELEMENTS.md](./s4/REFERENCE-ELEMENTS.md).
+- [s4/AGENTS.md](./s4/AGENTS.md) — алгоритм работы агента и внедрение S4 в проект.
+- [s4/contract/patterns.json](./s4/contract/patterns.json) — точка входа: намерение UI → элемент С4.
+- [s4/contract/rules.json](./s4/contract/rules.json) — глобальные запреты `R1..R6` (обязательны) и рекомендации `G1..G4`.
+- [s4/contract/elements](./s4/contract/elements) — спецификации элементов (созданные `<e-*>` и модифицированные нативные теги).
+- [s4/contract/validate-s4.mjs](./s4/contract/validate-s4.mjs) — машинный валидатор вёрстки.
 
-Контракт генерации для AI-агента — в [s4/AGENT.md](./s4/AGENT.md), словарь базовых классов — в [s4/index.md](./s4/index.md).
+Любой `.md` вторичен: при расхождении с `contract/*.json` — истина в JSON.
 
 ## Работа с AI-агентом
 
-Шаблон рассчитан на генерацию вёрстки AI-агентом. Для этого в папку `s4/` добавлены два файла:
+Шаблон рассчитан на генерацию вёрстки AI-агентом. Для этого в папку `s4/` добавлен автономный дистрибутив:
 
-- [s4/AGENT.md](./s4/AGENT.md) — **контракт генерации С4**: формулы классов, правила, few-shot, запреты. Агент читает его перед вёрсткой и строго соблюдает.
-- [s4/index.md](./s4/index.md) — **словарь базовых классов** (оглавление всех утилитарных классов без префиксов устройств). Агент сверяется с ним, чтобы не выдумывать несуществующие классы.
+- [s4/AGENTS.md](./s4/AGENTS.md) — инструкция для агента: внедрение, алгоритм, запреты.
+- [s4/contract/](./s4/contract) — **контракт С4**: JSON-спецификации элементов, словари утилит и переменных, правила `R1..R6`/`G1..G4`, валидатор. Единственный авторитет при вёрстке.
 
-Правила для агента собраны в [AGENTS.md](./AGENTS.md) этого репозитория. Перед началом работы агент изучает перечисленные файлы и верстает только классами С4.
+Правила для агента проекта собраны в [AGENTS.md](./AGENTS.md) этого репозитория. Перед началом работы агент изучает перечисленные файлы и верстает только классами С4, а каждую правку проверяет валидатором:
+
+- Windows: `node s4\contract\validate-s4.mjs <file.html>`
+- Linux/macOS: `node s4/contract/validate-s4.mjs <file.html>`
 
 ## Лицензия
 
