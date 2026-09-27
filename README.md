@@ -85,6 +85,8 @@ s4-template-html/
 - [s4/AGENTS.md](./s4/AGENTS.md) — алгоритм работы агента и внедрение S4 в проект.
 - [s4/contract/patterns.json](./s4/contract/patterns.json) — точка входа: намерение UI → элемент С4.
 - [s4/contract/rules.json](./s4/contract/rules.json) — глобальные запреты `R1..R6` (обязательны) и рекомендации `G1..G4`.
+- [s4/contract/utilities.json](./s4/contract/utilities.json) — словарь utility-классов (используется валидатором).
+- [s4/contract/variables.json](./s4/contract/variables.json) — публичные CSS-переменные.
 - [s4/contract/elements](./s4/contract/elements) — спецификации элементов (созданные `<e-*>` и модифицированные нативные теги).
 - [s4/contract/validate-s4.mjs](./s4/contract/validate-s4.mjs) — машинный валидатор вёрстки.
 

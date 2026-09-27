@@ -85,6 +85,8 @@ S4 markup rules are defined by the JSON contract of the `s4/` distribution:
 - [s4/AGENTS.md](./s4/AGENTS.md) — agent workflow and S4 integration into a project.
 - [s4/contract/patterns.json](./s4/contract/patterns.json) — entry point: UI intent → S4 element.
 - [s4/contract/rules.json](./s4/contract/rules.json) — global restrictions `R1..R6` (mandatory) and recommendations `G1..G4`.
+- [s4/contract/utilities.json](./s4/contract/utilities.json) — utility-class dictionary (used by the validator).
+- [s4/contract/variables.json](./s4/contract/variables.json) — public CSS variables.
 - [s4/contract/elements](./s4/contract/elements) — element specifications (created `<e-*>` and modified native tags).
 - [s4/contract/validate-s4.mjs](./s4/contract/validate-s4.mjs) — machine validator for markup.
 
