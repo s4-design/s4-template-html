@@ -1,0 +1,13 @@
+* text=auto eol=lf
+
+*.css text
+*.html text
+*.js text
+*.json text
+*.md text
+*.svg text
+*.yml text
+*.yaml text
+
+.gitattributes text
+.gitignore text
